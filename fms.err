@@ -1,0 +1,612 @@
+module: Command not found.
+module: Command not found.
+..................................................................................--------------------------------------------------------------------------
+The OpenFabrics (openib) BTL failed to initialize while trying to
+allocate some locked memory.  This typically can indicate that the
+memlock limits are set too low.  For most HPC installations, the
+memlock limits should be set to "unlimited".  The failure occured
+here:
+
+  Local host:    atmnode001
+  OMPI source:   btl_openib_component.c:1216
+  Function:      ompi_free_list_init_ex_new()
+  Device:        mlx4_0
+  Memlock limit: 65536
+
+You may need to consult with your system administrator to get this
+problem fixed.  This FAQ entry on the Open MPI web site may also be
+helpful:
+
+    http://www.open-mpi.org/faq/?category=openfabrics#ib-locked-pages
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+WARNING: There was an error initializing an OpenFabrics device.
+
+  Local host:   atmnode001
+  Local device: mlx4_0
+--------------------------------------------------------------------------
+[atmnode001:129307] 31 more processes have sent help message help-mpi-btl-openib.txt / init-fail-no-mem
+[atmnode001:129307] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+[atmnode001:129307] 31 more processes have sent help message help-mpi-btl-openib.txt / error in device init
+forrtl: severe (174): SIGSEGV, segmentation fault occurred
+Image              PC                Routine            Line        Source             
+fms.x              00000000005FCE3B  Unknown               Unknown  Unknown
+fms.x              00000000006055DF  Unknown               Unknown  Unknown
+fms.x              000000000079AEF9  Unknown               Unknown  Unknown
+fms.x              000000000063D332  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002AD4E358DF45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: severe (174): SIGSEGV, segmentation fault occurred
+Image              PC                Routine            Line        Source             
+fms.x              00000000005FCE3B  Unknown               Unknown  Unknown
+fms.x              00000000006055DF  Unknown               Unknown  Unknown
+fms.x              000000000079AEF9  Unknown               Unknown  Unknown
+fms.x              000000000063D332  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002B186FAD2F45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: severe (174): SIGSEGV, segmentation fault occurred
+Image              PC                Routine            Line        Source             
+fms.x              00000000005FCE3B  Unknown               Unknown  Unknown
+fms.x              0000000000612B60  Unknown               Unknown  Unknown
+fms.x              000000000079E34D  Unknown               Unknown  Unknown
+fms.x              000000000063D332  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002B9684FBAF45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+libmpi.so.1        00002B545F5639A6  Unknown               Unknown  Unknown
+libmpi.so.1        00002B545F4B1285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B54677A4302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B54677AC06E  Unknown               Unknown  Unknown
+libmpi.so.1        00002B545F4BE56B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002B545FA02653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002B5460980F45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+libmpi.so.1        00002B812A6BB9B4  Unknown               Unknown  Unknown
+libmpi.so.1        00002B812A609285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B81328FC302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B813290406E  Unknown               Unknown  Unknown
+libmpi.so.1        00002B812A61656B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002B812AB5A653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002B812BAD8F45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+libmpi.so.1        00002B855702B9AE  Unknown               Unknown  Unknown
+libmpi.so.1        00002B8556F79285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B855F26C302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B855F27406E  Unknown               Unknown  Unknown
+libmpi.so.1        00002B8556F8656B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002B85574CA653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002B8558448F45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+libmpi.so.1        00002AB045F6B9A6  Unknown               Unknown  Unknown
+libmpi.so.1        00002AB045EB9285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002AB04E1AC302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002AB04E1B406E  Unknown               Unknown  Unknown
+libmpi.so.1        00002AB045EC656B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002AB04640A653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002AB047388F45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+libmpi.so.1        00002AD4BCCF49EA  Unknown               Unknown  Unknown
+libmpi.so.1        00002AD4BCC42285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002AD4C4F35302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002AD4C4F3D06E  Unknown               Unknown  Unknown
+libmpi.so.1        00002AD4BCC4F56B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002AD4BD193653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002AD4BE111F45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+libmpi.so.1        00002B9A9A0249A6  Unknown               Unknown  Unknown
+libmpi.so.1        00002B9A99F72285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B9AA2265302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B9AA226D06E  Unknown               Unknown  Unknown
+libmpi.so.1        00002B9A99F7F56B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002B9A9A4C3653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002B9A9B441F45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+libmpi.so.1        00002B8AB93E29A6  Unknown               Unknown  Unknown
+libmpi.so.1        00002B8AB9330285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B8AC1623302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B8AC162B06E  Unknown               Unknown  Unknown
+libmpi.so.1        00002B8AB933D56B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002B8AB9881653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002B8ABA7FFF45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+mca_btl_sm.so      00002AFA0EF1EFC5  Unknown               Unknown  Unknown
+libmpi.so.1        00002AFA07B8E9EA  Unknown               Unknown  Unknown
+libmpi.so.1        00002AFA07ADC285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002AFA0FDCF302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002AFA0FDD706E  Unknown               Unknown  Unknown
+libmpi.so.1        00002AFA07AE956B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002AFA0802D653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002AFA08FABF45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+mca_btl_sm.so      00002B13F53D5DAB  Unknown               Unknown  Unknown
+libmpi.so.1        00002B13EE0459EA  Unknown               Unknown  Unknown
+libmpi.so.1        00002B13EDF93285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B13F6286302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B13F628E06E  Unknown               Unknown  Unknown
+libmpi.so.1        00002B13EDFA056B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002B13EE4E4653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002B13EF462F45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+libmpi.so.1        00002B51339599EA  Unknown               Unknown  Unknown
+libmpi.so.1        00002B51338A7285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B513BB9A302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B513BBA206E  Unknown               Unknown  Unknown
+libmpi.so.1        00002B51338B456B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002B5133DF8653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002B5134D76F45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+libmpi.so.1        00002B45551889EA  Unknown               Unknown  Unknown
+libmpi.so.1        00002B45550D6285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B455D3C9302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B455D3D106E  Unknown               Unknown  Unknown
+libmpi.so.1        00002B45550E356B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002B4555627653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002B45565A5F45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+libmpi.so.1        00002B6EC14509FF  Unknown               Unknown  Unknown
+libmpi.so.1        00002B6EC139E285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B6EC9691302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B6EC969906E  Unknown               Unknown  Unknown
+libmpi.so.1        00002B6EC13AB56B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002B6EC18EF653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002B6EC286DF45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+mca_pml_ob1.so     00002B8C00BD7498  Unknown               Unknown  Unknown
+libmpi.so.1        00002B8BFA6AE9EA  Unknown               Unknown  Unknown
+libmpi.so.1        00002B8BFA5FC285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B8C028EF302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B8C028F706E  Unknown               Unknown  Unknown
+libmpi.so.1        00002B8BFA60956B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002B8BFAB4D653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002B8BFBACBF45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+libmpi.so.1        00002B54B65CD9A6  Unknown               Unknown  Unknown
+libmpi.so.1        00002B54B651B285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B54BE80E302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B54BE81606E  Unknown               Unknown  Unknown
+libmpi.so.1        00002B54B652856B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002B54B6A6C653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002B54B79EAF45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+libmpi.so.1        00002B4A8C728990  Unknown               Unknown  Unknown
+libmpi.so.1        00002B4A8C676285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B4A94969302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B4A9497106E  Unknown               Unknown  Unknown
+libmpi.so.1        00002B4A8C68356B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002B4A8CBC7653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002B4A8DB45F45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+libmpi.so.1        00002B55B00639B4  Unknown               Unknown  Unknown
+libmpi.so.1        00002B55AFFB1285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B55B82A4302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B55B82AC06E  Unknown               Unknown  Unknown
+libmpi.so.1        00002B55AFFBE56B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002B55B0502653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002B55B1480F45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+libmpi.so.1        00002B477881C9A6  Unknown               Unknown  Unknown
+libmpi.so.1        00002B477876A285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B4780A5D302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B4780A6506E  Unknown               Unknown  Unknown
+libmpi.so.1        00002B477877756B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002B4778CBB653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002B4779C39F45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+mca_btl_sm.so      00002B746AF5AD5B  Unknown               Unknown  Unknown
+libmpi.so.1        00002B7463BCA9EA  Unknown               Unknown  Unknown
+libmpi.so.1        00002B7463B18285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B746BE0B302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B746BE1306E  Unknown               Unknown  Unknown
+libmpi.so.1        00002B7463B2556B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002B7464069653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002B7464FE7F45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+libmpi.so.1        00002AE06BA4F9A6  Unknown               Unknown  Unknown
+libmpi.so.1        00002AE06B99D285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002AE073C90302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002AE073C9806E  Unknown               Unknown  Unknown
+libmpi.so.1        00002AE06B9AA56B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002AE06BEEE653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002AE06CE6CF45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+mca_btl_sm.so      00002B9D5DF81DAB  Unknown               Unknown  Unknown
+libmpi.so.1        00002B9D56BF19EA  Unknown               Unknown  Unknown
+libmpi.so.1        00002B9D56B3F285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B9D5EE32302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B9D5EE3A06E  Unknown               Unknown  Unknown
+libmpi.so.1        00002B9D56B4C56B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002B9D57090653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002B9D5800EF45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+libmpi.so.1        00002BA2EB3519A6  Unknown               Unknown  Unknown
+libmpi.so.1        00002BA2EB29F285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002BA2F3592302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002BA2F359A06E  Unknown               Unknown  Unknown
+libmpi.so.1        00002BA2EB2AC56B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002BA2EB7F0653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002BA2EC76EF45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+libmpi.so.1        00002AF6A6C64A12  Unknown               Unknown  Unknown
+libmpi.so.1        00002AF6A6BB2285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002AF6AEEA5302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002AF6AEEAD06E  Unknown               Unknown  Unknown
+libmpi.so.1        00002AF6A6BBF56B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002AF6A7103653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002AF6A8081F45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+libmpi.so.1        00002B11372CC77B  Unknown               Unknown  Unknown
+libmpi.so.1        00002B11372244DF  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B113F517302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B113F51F06E  Unknown               Unknown  Unknown
+libmpi.so.1        00002B113723156B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002B1137775653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002B11386F3F45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+libmpi.so.1        00002B86716579B4  Unknown               Unknown  Unknown
+libmpi.so.1        00002B86715A5285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B8679898302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B86798A006E  Unknown               Unknown  Unknown
+libmpi.so.1        00002B86715B256B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002B8671AF6653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002B8672A74F45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+libmpi.so.1        00002B68FB98B9A6  Unknown               Unknown  Unknown
+libmpi.so.1        00002B68FB8D9285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B6903BCC302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B6903BD406E  Unknown               Unknown  Unknown
+libmpi.so.1        00002B68FB8E656B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002B68FBE2A653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002B68FCDA8F45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+libmpi.so.1        00002B08416329B4  Unknown               Unknown  Unknown
+libmpi.so.1        00002B0841580285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B0849873302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B084987B06E  Unknown               Unknown  Unknown
+libmpi.so.1        00002B084158D56B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002B0841AD1653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002B0842A4FF45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+libmpi.so.1        00002AC58A8379B4  Unknown               Unknown  Unknown
+libmpi.so.1        00002AC58A785285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002AC592A78302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002AC592A8006E  Unknown               Unknown  Unknown
+libmpi.so.1        00002AC58A79256B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002AC58ACD6653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002AC58BC54F45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+libmpi.so.1        00002AE5B2E769B4  Unknown               Unknown  Unknown
+libmpi.so.1        00002AE5B2DC4285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002AE5BB0B7302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002AE5BB0BF06E  Unknown               Unknown  Unknown
+libmpi.so.1        00002AE5B2DD156B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002AE5B3315653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002AE5B4293F45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+forrtl: error (78): process killed (SIGTERM)
+Image              PC                Routine            Line        Source             
+libmpi.so.1        00002B2926A9BA12  Unknown               Unknown  Unknown
+libmpi.so.1        00002B29269E9285  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B292ECDC302  Unknown               Unknown  Unknown
+mca_coll_tuned.so  00002B292ECE406E  Unknown               Unknown  Unknown
+libmpi.so.1        00002B29269F656B  Unknown               Unknown  Unknown
+libmpi_f77.so.1    00002B2926F3A653  Unknown               Unknown  Unknown
+fms.x              0000000000768F04  Unknown               Unknown  Unknown
+fms.x              000000000080771B  Unknown               Unknown  Unknown
+fms.x              000000000065889D  Unknown               Unknown  Unknown
+fms.x              000000000063D357  Unknown               Unknown  Unknown
+fms.x              00000000006962CF  Unknown               Unknown  Unknown
+fms.x              00000000005447EC  Unknown               Unknown  Unknown
+fms.x              0000000000808EC3  Unknown               Unknown  Unknown
+fms.x              00000000004343AC  Unknown               Unknown  Unknown
+libc.so.6          00002B2927EB8F45  Unknown               Unknown  Unknown
+fms.x              00000000004342A9  Unknown               Unknown  Unknown
+--------------------------------------------------------------------------
+mpirun has exited due to process rank 0 with PID 129308 on
+node atmnode001 exiting improperly. There are two reasons this could occur:
+
+1. this process did not call "init" before exiting, but others in
+the job did. This can cause a job to hang indefinitely while it waits
+for all processes to call "init". By rule, if one process calls "init",
+then ALL processes must call "init" prior to termination.
+
+2. this process called "init", but exited without calling "finalize".
+By rule, all processes that call "init" MUST call "finalize" prior to
+exiting or it will be considered an "abnormal termination"
+
+This may have caused other processes in the application to be
+terminated by signals sent by mpirun (as reported here).
+--------------------------------------------------------------------------
+/bin/ls: No match.
+/bin/ls: No match.
+restart_file: Undefined variable.

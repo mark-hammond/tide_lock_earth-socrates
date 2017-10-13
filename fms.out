@@ -1,0 +1,214 @@
+Working directory is /home/hammond/exoFMS/atm_dycores/exp/fv_55CNCE_v8/srcmods
+Thu Dec  8 09:30:41 GMT 2016
+MPI Used: /usr/bin/mpirun
+Using the following sourcecode modifications:
+/home/hammond/exoFMS/atm_dycores/exp/fv_55CNCE_v8/srcmods/fv_dynamics.F90
+/home/hammond/exoFMS/atm_dycores/exp/fv_55CNCE_v8/srcmods/atmosphere.F90
+/home/hammond/exoFMS/atm_dycores/exp/fv_55CNCE_v8/srcmods/simple_sat_vapor_pres.f90
+/home/hammond/exoFMS/atm_dycores/exp/fv_55CNCE_v8/srcmods/mapz_module.F90
+/home/hammond/exoFMS/atm_dycores/exp/fv_55CNCE_v8/srcmods/constants.f90
+/home/hammond/exoFMS/atm_dycores/exp/fv_55CNCE_v8/srcmods/interp.f90
+/home/hammond/exoFMS/atm_dycores/exp/fv_55CNCE_v8/srcmods/fv_pack.F90
+/home/hammond/exoFMS/atm_dycores/exp/fv_55CNCE_v8/srcmods/dyn_core.F90
+/home/hammond/exoFMS/atm_dycores/exp/fv_55CNCE_v8/srcmods/dry_convection.f90
+/home/hammond/exoFMS/atm_dycores/exp/fv_55CNCE_v8/srcmods/qe_moist_convection.f90
+/home/hammond/exoFMS/atm_dycores/exp/fv_55CNCE_v8/srcmods/init_dry_atm.F90
+/home/hammond/exoFMS/atm_dycores/exp/fv_55CNCE_v8/srcmods/lscale_cond.f90
+/home/hammond/exoFMS/atm_dycores/exp/fv_55CNCE_v8/srcmods/fv_diagnostics.F90
+/home/hammond/exoFMS/atm_dycores/exp/fv_55CNCE_v8/srcmods/set_eta.f90
+/home/hammond/exoFMS/atm_dycores/exp/fv_55CNCE_v8/srcmods/radiation_CIA.f90
+/home/hammond/exoFMS/atm_dycores/exp/fv_55CNCE_v8/srcmods/surface_flux.f90
+ Makefile is ready.
+make: Nothing to be done for `all'.
+NOTE from PE    0: MPP_DOMAINS_SET_STACK_SIZE: stack size set to    32768.
+NOTE from PE    0: MPP_IO_SET_STACK_SIZE: stack size set to   131072.
+NOTE from PE    0: MPP_DOMAINS_SET_STACK_SIZE: stack size set to   900000.
+  
+ ncnst=           4  num_prog=           4  pnats=           0  num_family=
+           0
+ FV Core Arrays. domain decomposition
+  X-AXIS =  144
+  Y-AXIS =    3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3   3
+              3   3   3   3   3   3   3   3
+MPP_PSET_CREATE creating PSETs... npset=   1
+MPP_PSET_CREATE: setting stacksize= 1000000
+ MPI-1 is used within mod_comm
+ Two-level Parallelism: Domains x Threads=          32           1
+ SMP pseudo domain decomposition in E-W =           1
+ Cold_start= T
+ n_split is set to            1  for (im,jm,dt)=         144          96
+          50
+ Total number of sponge layers=            1
+ Mean cell width (km)=   411.771195498874     
+ Critical latitude for pft=   40.7210475921927     
+ nlon, mlat, js2g0, jn1g1          144          96           2           4
+  size(sc,1), size(dc,1), size(dc,2)            2         144           2
+ nlon, mlat, js2g0, jn1g1          144          96          40          43
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          43          46
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          55          58
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          67          70
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          79          82
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          91          94
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          16          19
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          28          31
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96           4           7
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96           7          10
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          10          13
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          13          16
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          19          22
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          22          25
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          25          28
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          31          34
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          34          37
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          37          40
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          46          49
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          49          52
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          58          61
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          61          64
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          64          67
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          73          76
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          76          79
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          82          85
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          85          88
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          52          55
+ nlon, mlat, js2g0, jn1g1          144          96          70          73
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          88          91
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ nlon, mlat, js2g0, jn1g1          144          96          94          96
+  size(sc,1), size(dc,1), size(dc,2)            2         144           2
+  size(sc,1), size(dc,1), size(dc,2)            3         144           3
+ No surface dataset found; setting phis = 0
+ mean terrain height (m)=  0.000000000000000E+000
+ Total surface pressure (mb) =    1000.00000000000     
+ mean dry surface pressure =    999.997000030000     
+ TPW-vapor (kg/m**2) =  1.385155600811352E-002
+ TPW-total (kg/m**2) =  1.385155600701819E-002
+ dry mass to be added (pascals) =  0.299997000023723     
+ Total (moist) surface pressure after adjustment =    1000.00299997000     
+ Check_eta: allowable min_ps (mb)=   843.468937642009     
+ Divergence damping coefficient (m**2/sec x E6):
+           1  1.090158685440599E-002   72.3957425281199     
+           2  1.837950588847866E-002   30.1648927200500     
+           3  4.080634117281041E-002   24.1319141760400     
+           4  8.699726630237639E-002   24.1319141760400     
+           5  0.178293438952091        24.1319141760400     
+           6  0.351629007451253        24.1319141760400     
+           7  0.668069231986558        24.1319141760400     
+           8   1.22409085439788        24.1319141760400     
+           9   2.16535599518327        24.1319141760400     
+          10   3.70200158066184        24.1319141760400     
+          11   6.12355760805381        24.1319141760400     
+          12   9.81068462931983        24.1319141760400     
+          13   15.2402333957457        24.1319141760400     
+          14   22.9799630360726        24.1319141760400     
+          15   33.6698486033838        24.1319141760400     
+          16   47.9883672432052        24.1319141760400     
+          17   66.6043688545419        24.1319141760400     
+          18   90.1177780675355        24.1319141760400     
+          19   118.994927903209        24.1319141760400     
+          20   153.506216234824        24.1319141760400     
+          21   193.674513459983        24.1319141760400     
+          22   239.242065203734        24.1319141760400     
+          23   289.661564128596        24.1319141760400     
+          24   344.113953149936        24.1319141760400     
+          25   401.551937293964        24.1319141760400     
+          26   460.764780091863        24.1319141760400     
+          27   520.457335376709        24.1319141760400     
+          28   579.334819418873        24.1319141760400     
+          29   636.184706464763        24.1319141760400     
+          30   689.948219750047        24.1319141760400     
+          31   739.775876223949        24.1319141760400     
+          32   785.064004428108        24.1319141760400     
+          33   825.471659464650        24.1319141760400     
+          34   860.919546949108        24.1319141760400     
+          35   891.574201506746        24.1319141760400     
+          36   917.821644234395        24.1319141760400     
+          37   940.235090241465        24.1319141760400     
+          38   959.541104837402        24.1319141760400     
+          39   976.588078687052        24.1319141760400     
+          40   992.320185754018        24.1319141760400     
+           1           0
+ PS max =    10035.1392508974       min =    9916.55201245548     
+ Total surface pressure (mb) =    10000.0000000006     
+ mean dry surface pressure =    10000.0000000006     
+ TPW-vapor (kg/m**2) =  0.000000000000000E+000
+ TPW-total (kg/m**2) =  0.000000000000000E+000
+ U max =    198.529942344739       min =   -227.484060500934     
+ V max =    102.454459436099       min =   -102.454457117159     
+ W max =    5.55779130913244       min =   -4.45244476767391     
+ T max =    852.571766596709       min =    183.574393186192     
+ Q max =   0.000000000000000E+000  min =   0.000000000000000E+000
+ Q max =   0.000000000000000E+000  min =   0.000000000000000E+000
+ Q max =   0.000000000000000E+000  min =   0.000000000000000E+000
+ Q max =   0.000000000000000E+000  min =   0.000000000000000E+000
+           2           0
+ PS max =    10084.4458699565       min =    9828.41413348590     
+ Total surface pressure (mb) =    10000.0000000006     
+ mean dry surface pressure =    10000.0000000006     
+ TPW-vapor (kg/m**2) =  0.000000000000000E+000
+ TPW-total (kg/m**2) =  0.000000000000000E+000
+ U max =    395.905662745696       min =   -420.773706856876     
+ V max =    241.624775284789       min =   -241.624824873138     
+ W max =    7.80407125501882       min =   -12.2624854756934     
+ T max =    860.093570108605       min =    174.176635577294     
+ Q max =   0.000000000000000E+000  min =   0.000000000000000E+000
+ Q max =   0.000000000000000E+000  min =   0.000000000000000E+000
+ Q max =   0.000000000000000E+000  min =   0.000000000000000E+000
+ Q max =   0.000000000000000E+000  min =   0.000000000000000E+000
+           3           0
+ PS max =    10108.8786508769       min =    9713.41942002953     
+ Total surface pressure (mb) =    10000.0000000006     
+ mean dry surface pressure =    10000.0000000006     
+ TPW-vapor (kg/m**2) =  0.000000000000000E+000
+ TPW-total (kg/m**2) =  0.000000000000000E+000
+ U max =    411.567347256309       min =   -472.803884252648     
+ V max =    320.218305811538       min =   -320.187176250452     
+ W max =    28.9345500954596       min =   -39.2292284889659     
+ T max =    865.522718509620       min =    172.125774590574     
+ Q max =   0.000000000000000E+000  min =   0.000000000000000E+000
+ Q max =   0.000000000000000E+000  min =   0.000000000000000E+000
+ Q max =   0.000000000000000E+000  min =   0.000000000000000E+000
+ Q max =   0.000000000000000E+000  min =   0.000000000000000E+000
+           4           0
+ PS max =    10119.6213162082       min =    9709.87169923917     
+ Total surface pressure (mb) =    10000.0000000006     
+ mean dry surface pressure =    10000.0000000006     
+ TPW-vapor (kg/m**2) =  0.000000000000000E+000
+ TPW-total (kg/m**2) =  0.000000000000000E+000
+ U max =    515.643382714426       min =   -363.148360438696     
+ V max =    382.079523351697       min =   -382.085646512601     
+ W max =    32.3771030401290       min =   -41.4731802915016     
+ T max =    870.909937858229       min =    169.799392543203     
+ Q max =   0.000000000000000E+000  min =   0.000000000000000E+000
+ Q max =   0.000000000000000E+000  min =   0.000000000000000E+000
+ Q max =   0.000000000000000E+000  min =   0.000000000000000E+000
+ Q max =   0.000000000000000E+000  min =   0.000000000000000E+000
+Completed run 1 of 1 in bsub 1.
