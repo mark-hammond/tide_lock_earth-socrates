@@ -78,6 +78,27 @@ use fv_arrays_mod, only: fv_array_sync
   use  qe_moist_convection_mod, only: moist_convection, compute_k, d622
   use  simple_sat_vapor_pres_mod, only: escomp
 
+
+!SOCRATES specific
+!-------
+USE realtype_rd
+USE soc_constants_mod
+USE read_control_mod
+USE socrates_calc_mod
+USE compress_spectrum_mod
+USE def_spectrum
+USE def_dimen,   ONLY: StrDim
+USE def_control, ONLY: StrCtrl,  allocate_control,   deallocate_control
+USE def_atm,     ONLY: StrAtm,   allocate_atm,       deallocate_atm
+USE def_cld,     ONLY: StrCld,   allocate_cld,       deallocate_cld, &
+                                 allocate_cld_prsc,  deallocate_cld_prsc, &
+                                 allocate_cld_mcica, deallocate_cld_mcica
+USE def_aer,     ONLY: StrAer,   allocate_aer,       deallocate_aer, &
+                                 allocate_aer_prsc,  deallocate_aer_prsc
+USE def_bound,   ONLY: StrBound, allocate_bound,     deallocate_bound
+USE def_out,     ONLY: StrOut,                       deallocate_out
+!-----------------------------------------------------------------------
+
 !-----------------------------------------------------------------------
 
 implicit none
@@ -116,6 +137,37 @@ real, allocatable, dimension(:,:)   :: flux_t, flux_q, flux_r
 real, allocatable, dimension(:,:)   :: conv_rain, cond_rain, pme
 real, allocatable, dimension(:,:)   :: net_surf_sw_down, surf_lw_down
 real, allocatable, dimension(:,:,:) :: conv_rain_profile, cond_rain_profile
+
+!-------------------------------
+!SOCRATES specific
+real :: soc_stellar_constant = 600.0
+logical :: soc_tide_locked = .TRUE.
+!namelist/socrates_nml/ soc_tide_locked, soc_stellar_constant
+
+! Dimensions:
+  TYPE(StrDim) :: dimen
+
+! Control options:
+  TYPE(StrCtrl) :: control
+  TYPE(StrCtrl) :: control_sw
+
+! Spectral information:
+  TYPE(StrSpecData) :: spectrum
+  TYPE(StrSpecData) :: spectrum_sw
+
+! Atmospheric input:
+  TYPE(StrAtm) :: atm_input
+
+
+!  REAL  (RealK), ALLOCATABLE :: flux_net(:,:,:)
+!       Net flux
+!  REAL  (RealK), ALLOCATABLE :: heating_rate(:,:,:)
+!       Heating rates
+
+! Controlling variables:
+!  INTEGER :: i, j, l, ic, ll
+
+!----------------------------------
 !-----------------------------------------------------------------------
 contains
 
@@ -249,7 +301,15 @@ id_rh = register_diag_field(mod_name, 'rh',        &
      axes(1:3), Time, 'Relative humidity','%')
 
 !-----------------------------------------------------------------------
-call radiation_init(1, nlon, beglat, endlat, nlev, axes, Time,rlat(:,:))
+! Removed call to initialise old radiation routine
+!call radiation_init(1, nlon, beglat, endlat, nlev, axes, Time,rlat(:,:))
+
+! Initialise SOCRATES
+control%spectral_file = '/network/group/aopp/testvol2/plan/fms-scratch-mdh/sp_lw_ga7'
+CALL read_spectrum(control%spectral_file,Spectrum)
+
+control_sw%spectral_file = '/network/group/aopp/testvol2/plan/fms-scratch-mdh/sp_sw_ga7'
+CALL read_spectrum(control_sw%spectral_file,Spectrum_sw)
 
 !-----------------------------------------------------------------------
  end subroutine atmosphere_init
