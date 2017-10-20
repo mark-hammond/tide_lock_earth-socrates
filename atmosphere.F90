@@ -23,6 +23,9 @@
 !!                                                                   !!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+! Modified by MDH to interface with SOCRATES (UK Met Office) radiative transfer routine
+
+
 module atmosphere_mod
 
 !-----------------------------------------------------------------------
@@ -71,14 +74,16 @@ use fv_arrays_mod, only: fv_array_sync
   use fv_phys_mod, only: fv_phys
 
   use  diag_manager_mod, only: register_diag_field, send_data
-  use  radiation_mod, only: radiation_init, radiation_down, radiation_up, &
-                                    radiation_end
+!  use  radiation_mod, only: radiation_init, radiation_down, radiation_up, &
+!                                    radiation_end
   use  surface_flux_mod, only: surface_flux
   use dry_convection_mod, only: dry_convection
   use  qe_moist_convection_mod, only: moist_convection, compute_k, d622
   use  simple_sat_vapor_pres_mod, only: escomp
 
+!-----------------------------------------------------------------------
 
+!-------
 !SOCRATES specific
 !-------
 USE realtype_rd
@@ -97,8 +102,6 @@ USE def_aer,     ONLY: StrAer,   allocate_aer,       deallocate_aer, &
                                  allocate_aer_prsc,  deallocate_aer_prsc
 USE def_bound,   ONLY: StrBound, allocate_bound,     deallocate_bound
 USE def_out,     ONLY: StrOut,                       deallocate_out
-!-----------------------------------------------------------------------
-
 !-----------------------------------------------------------------------
 
 implicit none
@@ -131,7 +134,7 @@ integer :: id_t_surf, id_conv_rain, id_cond_rain, id_pme
 integer :: id_conv_rain_profile, id_cond_rain_profile
 integer :: id_flux_t, id_flux_q, id_flux_r, id_rh
 logical :: used
-real, allocatable, dimension(:,:)   :: t_surf
+real, allocatable, dimension(:,:)   :: t_surf, fms_stellar_flux, lats, lons
 real, allocatable, dimension(:,:,:) :: p_half, p_full, rh
 real, allocatable, dimension(:,:)   :: flux_t, flux_q, flux_r
 real, allocatable, dimension(:,:)   :: conv_rain, cond_rain, pme
@@ -140,7 +143,7 @@ real, allocatable, dimension(:,:,:) :: conv_rain_profile, cond_rain_profile
 
 !-------------------------------
 !SOCRATES specific
-real :: soc_stellar_constant = 600.0
+real :: soc_stellar_constant = 1400.0
 logical :: soc_tide_locked = .TRUE.
 !namelist/socrates_nml/ soc_tide_locked, soc_stellar_constant
 
@@ -168,6 +171,7 @@ logical :: soc_tide_locked = .TRUE.
 !  INTEGER :: i, j, l, ic, ll
 
 !----------------------------------
+
 !-----------------------------------------------------------------------
 contains
 
@@ -227,6 +231,9 @@ contains
 !-----------------------------------------------------------------------
 !df 1401010
 allocate(t_surf      (1:nlon, beglat:endlat))
+allocate(fms_stellar_flux      (1:nlon, beglat:endlat))
+allocate(lats      (1:nlon, beglat:endlat))
+allocate(lons      (1:nlon, beglat:endlat))
 !t_surf(:,:) = tsini 
 !----------------------------------------------------------------------
     isiz = nlon/4
@@ -301,17 +308,29 @@ id_rh = register_diag_field(mod_name, 'rh',        &
      axes(1:3), Time, 'Relative humidity','%')
 
 !-----------------------------------------------------------------------
-! Removed call to initialise old radiation routine
 !call radiation_init(1, nlon, beglat, endlat, nlev, axes, Time,rlat(:,:))
 
-! Initialise SOCRATES
+!-----------------------------------------------------------------------
+
+!control%spectral_file = '/network/group/aopp/testvol2/plan/fms-scratch-mdh/spec_file_co2_co'
+
+!control%spectral_file = '/network/group/aopp/testvol2/plan/fms-scratch-mdh/sp_lw_300_jm2'
+
 control%spectral_file = '/network/group/aopp/testvol2/plan/fms-scratch-mdh/sp_lw_ga7'
 CALL read_spectrum(control%spectral_file,Spectrum)
 
 control_sw%spectral_file = '/network/group/aopp/testvol2/plan/fms-scratch-mdh/sp_sw_ga7'
 CALL read_spectrum(control_sw%spectral_file,Spectrum_sw)
 
-!-----------------------------------------------------------------------
+! Read Socrates namelist
+!unit = open_file ('input.nml', action='read')
+!ierr=1
+!do while (ierr /= 0)
+!   read  (unit, nml=socrates_nml, iostat=io, end=10)
+!   ierr = check_nml_error (io, 'radiation_nml')
+!enddo
+!10 call close_file (unit)
+
  end subroutine atmosphere_init
 
 
@@ -330,7 +349,7 @@ CALL read_spectrum(control_sw%spectral_file,Spectrum_sw)
 real, dimension(1:nlon, beglat:endlat, nlev) :: tg_tmp, qg_tmp, cp, &
                                         u_tmp, v_tmp, rh_tmp, esat, &
                                         dt_ug, dt_vg, dt_tg, dt_qg, &
-                                        diff_u, diff_v
+                                        diff_u, diff_v, atm_mass, atm_rho
 real, dimension(1:nlon, beglat:endlat) :: q1, p1, dp1, dmass, lmass, rl, rt, ct, kappa1, t11, &
                                  zh, Ee, sigma, psg_tmp, Ek, dt_psg
 
@@ -366,10 +385,40 @@ real, dimension(1:nlon)       :: psm, tsm
 real :: psmean, tsmean
 
 integer :: k,n  
-integer :: ngroup, nn
+integer :: ngroup, nn, l
 !integer :: i, j, k, n
 !integer ij, nx, tsiz, isiz
 !integer is, ie
+
+!SOCRATES
+LOGICAL :: input_l_planet_grey_surface = .FALSE.
+REAL(r_def) :: input_planet_albedo = 0.06
+REAL(r_def) :: input_planet_emissivity = 0.94
+INTEGER(i_def), PARAMETER :: n_profile = 432
+INTEGER(i_def), PARAMETER :: n_layer = 40
+INTEGER(i_def) :: input_n_cloud_layer = 40
+INTEGER(i_def) :: input_n_aer_mode = 40
+INTEGER(i_def) :: input_cld_subcol_gen = 40
+INTEGER(i_def) :: input_cld_subcol_req = 40
+!INTEGER, PARAMETER :: n_profile = 432
+!INTEGER, PARAMETER :: n_layer = 40
+
+! Fluxes and radiances calculated
+!  REAL  (RealK), ALLOCATABLE :: flux_diffuse_diown(:,:,:)
+!       Diffuse downward flux
+!  REAL  (RealK), ALLOCATABLE :: flux_net(:,:,:)
+!       Net flux
+!  REAL  (RealK), ALLOCATABLE :: heating_rate(:,:,:)
+!       Heating rates
+
+real, dimension(n_profile,n_layer) :: input_p, input_t, input_mixing_ratio, &
+                                      input_d_mass, input_density, input_layer_heat_capacity, &
+                                      soc_heating_rate, output_heating_rate, input_o3_mixing_ratio
+real, dimension(n_profile,0:n_layer) :: input_p_level, input_t_level, soc_flux_direct, &
+                                        soc_flux_down, soc_flux_up, output_flux_net
+real, dimension(n_profile) :: input_t_surf, input_cos_zenith_angle, input_solar_irrad, &
+                              input_orog_corr
+
 
 real :: Ep, delta_t_surf, Emass
 real :: lh, rain1
@@ -444,27 +493,140 @@ delta_t = dt_atmos
        n = nlev
        cp = cp_air * (1 - qg_tmp) + cp_vapor * qg_tmp
 
-       call radiation_down(1, beglat, Time,                   &
-                       rlat(:,:),                &
-                       rlon(:,:),                &
-                       p_half(:,:,:),                  &
-                       qg_tmp(:,:,:),      &
-                       tg_tmp(:,:,:),             &
-                       net_surf_sw_down(:,:),          &
-                       surf_lw_down(:,:))
 
-       call radiation_up(1, beglat, Time,                   &
-                     rlat(:,:),                &
-                     p_half(:,:,:),                  &
-                     t_surf(:,:),                    &
-                     tg_tmp(:,:,:),             &
-                     dt_tg(:,:,:))
 
-       dt_tg(:,:,:) = dt_tg(:,:,:) *grav / cp(:,:,:) &
-        / (p_half(:,:,2:n+1) - p_half(:,:,1:n))
-       tg_tmp = tg_tmp + dt_tg * delta_t
-       dt_tg = 0. 
-       
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!SOCRATES
+!Set to LW
+control%isolir = 2
+
+!Read in control values
+CALL read_control(control,spectrum)
+CALL compress_spectrum(control,spectrum)
+
+!Set input T, p, p_level, and mixing ratio profiles
+input_t = RESHAPE(tg_tmp, (/432, 40/))
+input_p = RESHAPE(p_full, (/432, 40/))
+input_p_level = RESHAPE(p_half, (/432, 41/))
+input_mixing_ratio = 1.E-1
+input_o3_mixing_ratio = 1.E-6
+
+!Optional extra layers for radiative balance
+control%l_extra_top = .TRUE.
+!control_sw%l_extra_top = .TRUE.
+
+
+!Set input t_level by scaling t - NEEDS TO CHANGE!
+DO i = 1, 3
+      DO j = 1, 144
+            input_t_level(j + 144*(i-1),41) = 1.01*input_t(j+144*(i-1),40)
+            input_t_level(j + 144*(i-1),0:40) = 0.99*input_t(j+144*(i-1),0:40)
+      END DO
+END DO
+
+
+!Default parameters
+input_cos_zenith_angle = 0.7 
+!input_solar_irrad = 1370.0
+input_orog_corr = 0.0
+input_layer_heat_capacity = 29.07
+
+
+!Set tide-locked flux - should be set by namelist eventually!
+fms_stellar_flux = soc_stellar_constant*cos(rlat)*cos(rlon)
+WHERE (fms_stellar_flux < 0.0) fms_stellar_flux = 0.0
+input_solar_irrad = RESHAPE(fms_stellar_flux, (/432/))
+
+
+!Set input surface T
+input_t_surf = RESHAPE(t_surf, (/432/))
+
+!Start of a rough T-dependent albedo
+!bound%rho_alb(:,:,:) = 0.07
+!WHERE (t_surf < 273.0) bound%rho_alb(:,:,:) = 0.7
+
+!Set input dry mass, density, and heat capacity profiles
+DO i=n_layer, 1, -1
+      DO l=1, n_profile
+        input_d_mass(l, i) = (input_p_level(l, i)-input_p_level(l, i-1))/9.8
+        input_density(l, i) = input_p(l, i)/(8.31*input_t(l, i))!1000.!atm%p(l ,i) / 1000.
+        input_layer_heat_capacity(l,i) = input_d_mass(l,i)*1005.0
+      END DO
+END DO
+
+
+CALL socrates_calc(control, spectrum,                                          &
+  n_profile, n_layer, input_n_cloud_layer, input_n_aer_mode,                   &
+  input_cld_subcol_gen, input_cld_subcol_req,                                  &
+  input_p, input_t, input_t_level, input_d_mass, input_density,                &
+  input_mixing_ratio, input_o3_mixing_ratio,                                      &
+  input_t_surf, input_cos_zenith_angle, input_solar_irrad, input_orog_corr,    &
+  input_l_planet_grey_surface, input_planet_albedo, input_planet_emissivity,   &
+  input_layer_heat_capacity,                                                   &
+  soc_flux_direct, soc_flux_down, soc_flux_up, soc_heating_rate)
+
+
+!output_flux_net(:,1) =  soc_flux_down(:,40)!soc_flux_up(1,:) - soc_flux_down(1,:)
+
+!A
+!surf_lw_down = RESHAPE(soc_flux_down(:,40) , (/144,3/))
+
+!PRINT*, 'ook'
+!PRINT*, soc_flux_up(1,:)
+
+!output_flux_net(1,:) = soc_flux_up(1,:) - soc_flux_down(1,:)
+
+!A-PROBLEM HERE!
+output_heating_rate = soc_heating_rate(:,:)
+!PRINT*, SHAPE(output_heating_rate)
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!Set SW
+control_sw%isolir = 1
+CALL read_control(control_sw, spectrum_sw)
+CALL compress_spectrum(control_sw,spectrum_sw)
+
+CALL socrates_calc(control_sw, spectrum_sw,                                          &
+  n_profile, n_layer, input_n_cloud_layer, input_n_aer_mode,                   &
+  input_cld_subcol_gen, input_cld_subcol_req,                                  &
+  input_p, input_t, input_t_level, input_d_mass, input_density,                &
+  input_mixing_ratio, input_o3_mixing_ratio,                                      &
+  input_t_surf, input_cos_zenith_angle, input_solar_irrad, input_orog_corr,    &
+  input_l_planet_grey_surface, input_planet_albedo, input_planet_emissivity,   &
+  input_layer_heat_capacity,                                                   &
+  soc_flux_direct, soc_flux_down, soc_flux_up, soc_heating_rate)
+
+!output_flux_net(:,1) = output_flux_net(:,1) + soc_flux_down(:,40)!soc_flux_up(1,:) - soc_flux_down(1,:)
+
+!A
+net_surf_sw_down = RESHAPE(soc_flux_down(:,40) , (/144,3/))
+!A
+output_heating_rate = output_heating_rate + soc_heating_rate
+
+                                    
+
+!       dt_tg(:,:,:) = dt_tg(:,:,:) *grav / cp(:,:,:) &
+!        / (p_half(:,:,2:n+1) - p_half(:,:,1:n))
+!PRINT*, SHAPE(RESHAPE(output_heating_rate, (/432, 3, 40/)))
+
+!Test surface mixing term              
+!output_heating_rate(:,40) = output_heating_rate(:,40)! + (input_t_surf(:) - input_t(:,40))/2000000.0
+
+!PRINT*, output_heating_rate(1,:)                      
+!output_heating_rate( 
+       tg_tmp = tg_tmp + RESHAPE(output_heating_rate, (/144, 3, 40/)) * delta_t
+!PRINT*, output_heating_rate(1,:)
+
+!KLUDGE - FIX!
+WHERE (tg_tmp < 130.0) tg_tmp = 130.0
+tg_tmp(:,:,1) = tg_tmp(:,:,2)
+
+
+!       dt_tg = 0. 
+!t_surf = t_surf + (RESHAPE(soc_flux_down(:,41), (/144,3/)) - 5.67e-08 * (t_surf)**4) / 30.0 !+ (RESHAPE(input_t_level(:,41), (/144,3/)) - t_surf) * 0.1
+
+
+ 
        call surface_flux(       &
         tg_tmp(:,:,nlev),       &
         qg_tmp(:,:,nlev),       &
@@ -504,12 +666,14 @@ delta_t = dt_atmos
                                       delta_t,                              &
                                     land(:,:),                              &
                                    avail(:,:)  )
-!
-!------------------------------------------------------------------------------
+
 ! boundary layer scheme
 tg_tmp(:,:,n) = tg_tmp(:,:,n) + flux_t * delta_t &
            * grav / (p_half(:,:,n+1) - p_half(:,:,n)) &
            / cp(:,:,n)
+
+
+
 !dt_ug(:, :, n) = - ug(:,:,n,previous) / 86400.  
 !dt_vg(:, :, n) = - vg(:,:,n,previous) / 86400.  !* 2.
 !Ek = (p_half(:,:,n+1) - p_half(:,:,n)) / grav/ 86400.  &
@@ -573,6 +737,8 @@ end do
 !       dt_ug(:,:,k)  = (diff_u(:,:,k)-diff_u(:,:,k-1))/(p_full(:,:,k)-p_full(:,:,k-1))
 !       dt_vg(:,:,k)  = (diff_v(:,:,k)-diff_v(:,:,k-1))/(p_full(:,:,k)-p_full(:,:,k-1))
 !
+
+
 tg_tmp = tg_tmp - delta_t / cp * &
          (dt_ug*(u_tmp(:,:,:)+dt_ug*delta_t/2.)+ &
           dt_vg*(v_tmp(:,:,:)+dt_vg*delta_t/2.) )
@@ -581,6 +747,7 @@ v_tmp = v_tmp + dt_vg * delta_t
 where (flux_q(:,:) < 0.0)
    flux_q(:,:) = 0.
 endwhere
+
 
 !evaporation, convection
 !$omp parallel do private(ij,i,j,k,m,is,ie,p_full,p_half)
@@ -602,12 +769,16 @@ do ij=1,tsiz
     !large-scale condensation
     !prev is actually after
     ! update surface temperature and pressure
+
     delta_t_surf = (surf_lw_down(i,j) + net_surf_sw_down(i,j)  &
                      - flux_t(i,j) - flux_r(i,j) ) &
                     * delta_t / rho_cp / mld !eff_heat_capacity
 
-    t_surf(i,j) = t_surf(i,j) + delta_t_surf
 
+!    delta_t_surf = (surf_lw_down(i,j) + net_surf_sw_down(i,j)-0.5*5.67e-8*t_surf(i,j)**4) &
+!                   * delta_t / 200000.0
+
+    t_surf(i,j) = t_surf(i,j) + delta_t_surf
     !correct the energy imbalance due to vertical interpolation
 
     tg_tmp(i,j,:) = t_after
@@ -770,7 +941,6 @@ if(id_cond_rain_profile > 0) used = send_data(id_cond_rain_profile, cond_rain_pr
 if(id_rh > 0)     used = send_data(id_rh, rh, Time)
 
 !--------------------------------------------------------
-
  end subroutine atmosphere
 
 
@@ -807,7 +977,7 @@ if(id_rh > 0)     used = send_data(id_rh, rh, Time)
     deallocate(net_surf_sw_down, surf_lw_down)
     deallocate(conv_rain_profile, cond_rain_profile, rh)
 
-    call radiation_end
+!    call radiation_end
 
  end subroutine atmosphere_end
 

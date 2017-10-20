@@ -24,6 +24,10 @@ character(len=128) :: tagname='$Name: latest $'
 !dummy variable to use in HUGE initializations
 real :: realnumber
 
+! SOCRATES types
+!  INTEGER, PARAMETER :: r_def=SELECTED_REAL_KIND(15, 307)
+!  INTEGER, PARAMETER :: i_def=SELECTED_INT_KIND(10)
+
 !------------ physical constants ---------------
 ! <DATA NAME="RADIUS" UNITS="m" TYPE="real" DEFAULT="6371.e3">
 !   radius of the earth
@@ -57,7 +61,7 @@ real :: realnumber
 ! </DATA>
 
 real, public, parameter :: RADIUS = 6371.0e3! *0.772
-real, public, parameter :: OMEGA  = 7.292e-5/6.0! /26.5122 !/365.0
+real, public, parameter :: OMEGA  =7.292e-5/5.0!1.0!4.05! /26.5122 !/365.0
 real, public, parameter :: GRAV   = 9.81!6.941! * 0.1309875
 real, public, parameter :: RDGAS  = 287.00421!/100. !287.00421 
 real, public, parameter :: KAPPA  = 0.28586 !0.2858607676 

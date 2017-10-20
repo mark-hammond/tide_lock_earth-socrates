@@ -750,7 +750,7 @@
          call interp(size(lnp_initial), lnp_initial, q_initial, size(qg_ini), &
             lnpfull_ini, qg_ini)
          do k = 1, nlev
-            if (tg_ini(k) .le. 200.) tg_ini(k) = 200.
+            if (tg_ini(k) .le. 150.) tg_ini(k) = 150.
          end do
          do i=1,nlon
             !tg_ini = tg_ini *(  (1- ABS(nlon-72)  / 288))
