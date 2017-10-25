@@ -508,8 +508,8 @@ CALL compress_spectrum(control,spectrum)
 input_t = RESHAPE(tg_tmp, (/432, 40/))
 input_p = RESHAPE(p_full, (/432, 40/))
 input_p_level = RESHAPE(p_half, (/432, 41/))
-input_mixing_ratio = 1.E-1
-input_o3_mixing_ratio = 1.E-6
+input_mixing_ratio = 5.E-1
+input_o3_mixing_ratio = 1.E-7
 
 !Optional extra layers for radiative balance
 control%l_extra_top = .TRUE.
