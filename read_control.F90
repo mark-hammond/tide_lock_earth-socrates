@@ -45,7 +45,7 @@ case(ip_solar)
   control%l_rayleigh       = .FALSE.!.TRUE.
   control%l_orog           = .FALSE.
   control%l_solvar         = .FALSE.
-  control%l_h2o            = .TRUE.!.FALSE.
+  control%l_h2o            = .FALSE.
   control%l_co2            = .FALSE.
   control%l_o3             = .TRUE.
   control%l_n2o            = .FALSE.!.TRUE.

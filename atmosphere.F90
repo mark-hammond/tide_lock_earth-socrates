@@ -494,8 +494,7 @@ delta_t = dt_atmos
        cp = cp_air * (1 - qg_tmp) + cp_vapor * qg_tmp
 
 
-
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!-----------------------------------------------------------------
 !SOCRATES
 !Set to LW
 control%isolir = 2
@@ -508,8 +507,9 @@ CALL compress_spectrum(control,spectrum)
 input_t = RESHAPE(tg_tmp, (/432, 40/))
 input_p = RESHAPE(p_full, (/432, 40/))
 input_p_level = RESHAPE(p_half, (/432, 41/))
-input_mixing_ratio = 5.E-1
-input_o3_mixing_ratio = 1.E-7
+input_mixing_ratio = 1.E-3
+input_o3_mixing_ratio = 1.E-15
+
 
 !Optional extra layers for radiative balance
 control%l_extra_top = .TRUE.
@@ -566,21 +566,18 @@ CALL socrates_calc(control, spectrum,                                          &
   soc_flux_direct, soc_flux_down, soc_flux_up, soc_heating_rate)
 
 
-!output_flux_net(:,1) =  soc_flux_down(:,40)!soc_flux_up(1,:) - soc_flux_down(1,:)
+surf_lw_down = RESHAPE(soc_flux_down(:,40) , (/144,3/))
 
-!A
-!surf_lw_down = RESHAPE(soc_flux_down(:,40) , (/144,3/))
-
-!PRINT*, 'ook'
-!PRINT*, soc_flux_up(1,:)
-
-!output_flux_net(1,:) = soc_flux_up(1,:) - soc_flux_down(1,:)
-
-!A-PROBLEM HERE!
 output_heating_rate = soc_heating_rate(:,:)
-!PRINT*, SHAPE(output_heating_rate)
 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+PRINT*, 'up'
+PRINT*, soc_flux_up(1,:)
+PRINT*, 'down'
+PRINT*, soc_flux_down(1,:)
+
+
+!------------------------------------
+!Stellar heating
 !Set SW
 control_sw%isolir = 1
 CALL read_control(control_sw, spectrum_sw)
@@ -596,35 +593,24 @@ CALL socrates_calc(control_sw, spectrum_sw,                                     
   input_layer_heat_capacity,                                                   &
   soc_flux_direct, soc_flux_down, soc_flux_up, soc_heating_rate)
 
-!output_flux_net(:,1) = output_flux_net(:,1) + soc_flux_down(:,40)!soc_flux_up(1,:) - soc_flux_down(1,:)
 
-!A
 net_surf_sw_down = RESHAPE(soc_flux_down(:,40) , (/144,3/))
-!A
 output_heating_rate = output_heating_rate + soc_heating_rate
 
-                                    
+!--------------------------------------
+!Heat atmosphere
 
-!       dt_tg(:,:,:) = dt_tg(:,:,:) *grav / cp(:,:,:) &
-!        / (p_half(:,:,2:n+1) - p_half(:,:,1:n))
-!PRINT*, SHAPE(RESHAPE(output_heating_rate, (/432, 3, 40/)))
+tg_tmp = tg_tmp + RESHAPE(output_heating_rate, (/144, 3, 40/)) * delta_t
 
-!Test surface mixing term              
-!output_heating_rate(:,40) = output_heating_rate(:,40)! + (input_t_surf(:) - input_t(:,40))/2000000.0
-
-!PRINT*, output_heating_rate(1,:)                      
-!output_heating_rate( 
-       tg_tmp = tg_tmp + RESHAPE(output_heating_rate, (/144, 3, 40/)) * delta_t
-!PRINT*, output_heating_rate(1,:)
+!PRINT*, 'ook'
+!PRINT*, input_t(1,:)
 
 !KLUDGE - FIX!
-WHERE (tg_tmp < 130.0) tg_tmp = 130.0
-tg_tmp(:,:,1) = tg_tmp(:,:,2)
+!WHERE (tg_tmp < 130.0) tg_tmp = 130.0
+!tg_tmp(:,:,1) = tg_tmp(:,:,2)
 
-
-!       dt_tg = 0. 
-!t_surf = t_surf + (RESHAPE(soc_flux_down(:,41), (/144,3/)) - 5.67e-08 * (t_surf)**4) / 30.0 !+ (RESHAPE(input_t_level(:,41), (/144,3/)) - t_surf) * 0.1
-
+!END OF SOCRATES
+!------------------------------------------------------------------------------
 
  
        call surface_flux(       &
